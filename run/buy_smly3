@@ -1,0 +1,54 @@
+#!/bin/bash
+
+me=`basename "$0"`
+
+if [ $# != 2 ]
+then
+    echo "usage: $me SMLY3_ADDRESS AMOUNT"
+    exit 1
+fi
+
+echo "transaction fees of 2 SMLY will be charged" 
+
+smly2_address="$1"
+amount=`echo "$2" | bc`
+amountplusone=`echo "$2 + 1" | bc`
+
+my_address=`smileycoin-cli getnewaddress`
+exchange_address="BBURNWmHr57hJKk9cFfjCko7HJmmNaz6n3"
+
+data="fa32`echo $smly2_address | xxd -p | tr -d '\n'`"
+
+unspent_txid=`smileycoin-cli sendtoaddress $my_address $amountplusone`
+
+if [ -z $unspent_txid ]
+then 
+    echo "failed to create UTXO of amount $amount"
+    exit 1
+fi
+
+unspent_tx=`smileycoin-cli getrawtransaction $unspent_txid`
+unspent_decoded=`smileycoin-cli decoderawtransaction $unspent_tx`
+unspent_vout=`echo "$unspent_decoded" | grep $my_address -B 7 | head -1 | sed -E -e 's|            "n" : (.*),|\1|'`
+
+if [ -z $unspent_tx ]
+then 
+    echo "failed to fetch the raw transaction of the previously created utxo $unspent_txid"
+    exit 1
+fi
+
+raw=`smileycoin-cli createrawtransaction "[{\"txid\":\"$unspent_txid\",\"vout\":$unspent_vout}]"\
+                                         "{\"$exchange_address\":1,\"data\":\"$data:$amount\"}"`
+smileycoin-cli decoderawtransaction $raw
+signed=`smileycoin-cli signrawtransaction "$raw" | head -2 | tail -1 | sed -e 's/    "hex" : //' -e 's/"//g' -e 's/,//'`
+
+sent_txid=`smileycoin-cli sendrawtransaction "$signed"`
+if [ -z $sent_txid ]
+then 
+    echo "failed to send transaction"
+    exit 1
+fi
+
+echo "sent $amount to the address of the seller $seller_address with data $data"
+echo "$sent_txid"
+

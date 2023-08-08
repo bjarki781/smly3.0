@@ -1,5 +1,5 @@
 [package]
-name = "substrate"
+name = "smly3"
 description = "Next-generation framework for blockchain innovation"
 license = "GPL-3.0-or-later WITH Classpath-exception-2.0"
 homepage = "https://substrate.io"
@@ -37,16 +37,13 @@ node-cli = { path = "bin/node/cli" }
 # `cargo run` on its own doesn't support features. To use features you must explicitly use
 # `node-cli` in your command, e.g. `cargo run -p node-cli --features try-runtime ...`.
 [[bin]]
-name = "substrate"
+name = "smly"
 path = "bin/node/cli/bin/main.rs"
 
 [workspace]
 resolver = "2"
 
 members = [
-	"bin/node-template/node",
-	"bin/node-template/pallets/template",
-	"bin/node-template/runtime",
 	"bin/node/bench",
 	"bin/node/cli",
 	"bin/node/executor",

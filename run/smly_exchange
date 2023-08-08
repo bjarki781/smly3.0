@@ -1,0 +1,122 @@
+#!/bin/bash
+
+# 1 receive transaction to our vendor address
+# 2 extract a smly2.0 address from an op_return 
+# 3 look at how much money was sent with the op_return
+# 4 transfer amount found in step 3 from master account to the address in step 2
+# 5 burn smly sent
+# if anything goes wrong we send the smiley we received back
+
+
+logfile=~/exchange.log
+txidfile=~/txids.log
+ws_dest="ws://127.0.0.1:9945"
+nuc_seed=`cat ~/nuc_seed`
+
+log() {
+    echo "$txid_first $1" >> $logfile
+}
+
+failure() {
+    log "ERROR $1"
+    exit 1
+}
+
+if [ $# != 1 ]
+then
+    failure "we need txid as an argument"
+fi
+
+program_name="$0"
+txid="$1"
+
+if [ -z "$txid" ]
+then
+    failure "txid is an empty string"
+fi
+
+txid_first=`echo $txid | cut -b 1-6`
+
+our_address="BBURNWmHr57hJKk9cFfjCko7HJmmNaz6n3"
+
+log "`date`"
+
+repeat=`grep "$txid" "$txidfile"`
+if [ "$repeat" ]
+then
+    exit 1
+fi
+
+echo "$txid" >> $txidfile
+
+# Step 0: Omit the coinbase transactions (dividends etc)
+generated=`smileycoin-cli gettransaction "$txid" | grep generated | wc -l`
+if [ "$generated" != "0" ]
+then
+	failure "invalid transaction: $txid_first is a coinbase transaction"
+fi
+
+# Step 1: extract some basics for the incoming transaction (the amount and encrypted address)
+tx=`smileycoin-cli getrawtransaction "$txid"`
+
+if [ -z "$tx" ]
+then
+	log "could not look up txid $txid"
+        log "sleeping for 120 seconds"
+	sleep 120
+	tx=`smileycoin-cli getrawtransaction "$txid"`
+
+	if [ -z "$tx" ]
+	then
+        failure "still could not look up txid $txid"
+	fi
+fi
+
+log "checking whether this tx contains a some coins or not"
+decodedtx=`smileycoin-cli decoderawtransaction "$tx"`
+
+sent_amount=`echo "$decodedtx" | grep -B 3 OP_RETURN | head -1 \
+        | perl -pe 's|.*"value" : (\d+.\d+).*|\1|'`
+log "this is the amount sent: >$sent_amount<"
+
+if [ -z "$sent_amount" ]
+then
+	failure "invalid transaction: ${txid_first}... does not include any SMLY to our address"
+fi
+
+
+if [ `echo "$sent_amount < 1" | bc -l` = 1 ]
+then
+	failure "invalid transaction: ${txid_first}... has to contain more than 1SMLY for tx fees"
+fi
+
+# Step 2: read op_return data in tx
+log "trying to find magic number fa32 and SMLY2.0 address embedded in the transaction"
+hexaddress=`echo $decodedtx | perl -pe 's|.*fa32(35.*?)".*|\1|'`
+address=`echo "$hexaddress" | xxd -r -p`
+
+amount_back=`echo "$sent_amount - 1" | bc`
+log "amount to send back in case of failure: $amount_back"
+scaled_amount=`echo "$sent_amount * 1000000000000" | bc`
+final_amount=`LC_NUMERIC="en_US.UTF-8" printf "%.0f" "$scaled_amount"`
+
+if [ -z "$address" ]
+then
+	failure "invalid transaction: was not able to find SMLY3.0 address to send to"
+fi
+
+old_balance=`polkadot-js-api --seed --ws "$ws_dest" query.system.account "$address" | grep free  \
+| sed -s 's|,||g' | perl -pe 's|.* "(\d+)"|\1|'`
+
+new_balance=`echo "$final_amount + $old_balance" | bc`
+send_result=`polkadot-js-api --seed "$nuc_seed" --sudo --ws "$ws_dest" tx.balances.forceSetBalance  "$address" "$new_balance"`
+failed=`echo "$send_result" | grep ExtrinsicFailed`
+
+if [ "$failed" ]
+then
+    failure "something went wrong with transferring SMLY2.0, nothing transferred"
+fi
+
+log "successfully burned ${sent_amount}SMLY and set ${new_balance} to $address on the SMLY2.0 chain"
+exit 0
+
