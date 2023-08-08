@@ -3,7 +3,7 @@
   "id": "smly3",
   "chainType": "Development",
   "bootNodes": [
-    "/ip4/127.0.0.1/tcp/30333/p2p/12D3KooWAL2FsyxQzLcKuRfh6izpyauWxoYwyxp9RJcWvSwhquZT"
+    "/ip4/127.0.0.1/tcp/30333/p2p/12D3KooWJh2oW5PAAaT7cGg2GFui94sz77jsqDhrf3vmh9e5s7q7"
   ],
   "telemetryEndpoints": null,
   "protocolId": null,
