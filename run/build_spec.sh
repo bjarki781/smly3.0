@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 function subkey() {
-    ~/substrate/target/release/subkey "$@"
+    cargo run --release --package subkey -- "$@"
 }
 
 # generate keys
@@ -15,8 +15,11 @@ privsveit=`echo "$rawaura_sveit" | head -1 | sed -s 's/Secret phrase:\s*//'`
 privtw=`echo "$rawaura_tw" | head -1 | sed -s 's/Secret phrase:\s*//'`
 
 # save them locally
-echo $privnuc > ~/privkeys
+echo "nuc private passphrase" > ~/privkeys
+echo $privnuc >> ~/privkeys
+echo "sveit private passphrase" >> ~/privkeys
 echo $privsveit >> ~/privkeys
+echo "tw private passphrase" >> ~/privkeys
 echo $privtw >> ~/privkeys
 
 # get aura pubkey
@@ -32,16 +35,22 @@ export grannuc=`echo "$rawgran_nuc" | tail -1 | sed -s 's/\s*SS58 Address:\s*//'
 export gransveit=`echo "$rawgran_sveit" | tail -1 | sed -s 's/\s*SS58 Address:\s*//'`
 export grantw=`echo "$rawgran_tw" | tail -1 | sed -s 's/\s*SS58 Address:\s*//'`
 
-echo $auranuc > pub_keys
+echo "Aura public key of NUC" > pub_keys
+echo $auranuc >> pub_keys
+echo "Grandpa public key of NUC" >> pub_keys
 echo $grannuc >> pub_keys
+echo "Aura public key of Sveit" >> pub_keys
 echo $aurasveit >> pub_keys
+echo "Granpa public key of Sveit" >> pub_keys
 echo $gransveit >> pub_keys
+echo "Aura public key of TW" >> pub_keys
 echo $auratw >> pub_keys
+echo "Granpa public key of TW" >> pub_keys
 echo $grantw >> pub_keys
 
 # create spec from keys
 envsubst < template_spec.json > spec.json
 
 # build the raw spec
-../target/release/smly3_0 build-spec --disable-default-bootnode --chain spec.json --raw > raw_spec.json
+../target/release/smly3 build-spec --chain spec.json --raw > raw_spec.json
 
