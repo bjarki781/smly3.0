@@ -2,9 +2,7 @@
   "name": "SMLY3.0",
   "id": "smly3",
   "chainType": "Development",
-  "bootNodes": [
-    "/ip4/127.0.0.1/tcp/30333/p2p/12D3KooWJh2oW5PAAaT7cGg2GFui94sz77jsqDhrf3vmh9e5s7q7"
-  ],
+  "bootNodes": [],
   "telemetryEndpoints": null,
   "protocolId": null,
   "properties": null,
@@ -33,11 +31,11 @@
       "balances": {
         "balances": [
           [
-            "5GP56sjh9pMe7WrmYzH2AHVEoiWmbwPREBeCJpYX1A8cc5y5",
+            "5FTqEQ6e2n3PEz8XPWGCsqUJzvvyZwzfzvFb7eWiDw1Wor6y",
             1000000000000000000000
           ],
           [
-            "5GLN3NpH3reQQg2oFEf7sLou9eSPxskU13CZNrZtNqKj2spn",
+            "5E4iukGvdiRgVeWrS9q47JgvFQ7KpuuAn1NHsptfQk9WC7Ub",
             1000000000000000000000
           ]
         ]
@@ -49,22 +47,22 @@
         "validatorCount": 2,
         "minimumValidatorCount": 1,
         "invulnerables": [
-          "5GP56sjh9pMe7WrmYzH2AHVEoiWmbwPREBeCJpYX1A8cc5y5",
-          "5GLN3NpH3reQQg2oFEf7sLou9eSPxskU13CZNrZtNqKj2spn"
+          "5FTqEQ6e2n3PEz8XPWGCsqUJzvvyZwzfzvFb7eWiDw1Wor6y",
+          "5E4iukGvdiRgVeWrS9q47JgvFQ7KpuuAn1NHsptfQk9WC7Ub"
         ],
         "forceEra": "NotForcing",
         "slashRewardFraction": 100000000,
         "canceledPayout": 0,
         "stakers": [
           [
-            "5GP56sjh9pMe7WrmYzH2AHVEoiWmbwPREBeCJpYX1A8cc5y5",
-            "5GP56sjh9pMe7WrmYzH2AHVEoiWmbwPREBeCJpYX1A8cc5y5",
+            "5FTqEQ6e2n3PEz8XPWGCsqUJzvvyZwzfzvFb7eWiDw1Wor6y",
+            "5FTqEQ6e2n3PEz8XPWGCsqUJzvvyZwzfzvFb7eWiDw1Wor6y",
             1000000000000000000,
             "Validator"
           ],
           [
-            "5GLN3NpH3reQQg2oFEf7sLou9eSPxskU13CZNrZtNqKj2spn",
-            "5GLN3NpH3reQQg2oFEf7sLou9eSPxskU13CZNrZtNqKj2spn",
+            "5E4iukGvdiRgVeWrS9q47JgvFQ7KpuuAn1NHsptfQk9WC7Ub",
+            "5E4iukGvdiRgVeWrS9q47JgvFQ7KpuuAn1NHsptfQk9WC7Ub",
             1000000000000000000,
             "Validator"
           ]
@@ -77,23 +75,23 @@
       "session": {
         "keys": [
           [
-            "5GP56sjh9pMe7WrmYzH2AHVEoiWmbwPREBeCJpYX1A8cc5y5",
-            "5GP56sjh9pMe7WrmYzH2AHVEoiWmbwPREBeCJpYX1A8cc5y5",
+            "5FTqEQ6e2n3PEz8XPWGCsqUJzvvyZwzfzvFb7eWiDw1Wor6y",
+            "5FTqEQ6e2n3PEz8XPWGCsqUJzvvyZwzfzvFb7eWiDw1Wor6y",
             {
-              "grandpa": "5GH3hMuQm6gBFSXF9qPwbTskdjLsu6uMajqkpucCV1qNZscz",
-              "babe": "5GP56sjh9pMe7WrmYzH2AHVEoiWmbwPREBeCJpYX1A8cc5y5",
-              "im_online": "5GP56sjh9pMe7WrmYzH2AHVEoiWmbwPREBeCJpYX1A8cc5y5",
-              "authority_discovery": "5GP56sjh9pMe7WrmYzH2AHVEoiWmbwPREBeCJpYX1A8cc5y5"
+              "grandpa": "5HdU4PvkNBnj73qvhxeKgw7rD2UJc3YpbisSTrTZV19dHzzp",
+              "babe": "5FTqEQ6e2n3PEz8XPWGCsqUJzvvyZwzfzvFb7eWiDw1Wor6y",
+              "im_online": "5FTqEQ6e2n3PEz8XPWGCsqUJzvvyZwzfzvFb7eWiDw1Wor6y",
+              "authority_discovery": "5FTqEQ6e2n3PEz8XPWGCsqUJzvvyZwzfzvFb7eWiDw1Wor6y"
             }
           ],
           [
-            "5GLN3NpH3reQQg2oFEf7sLou9eSPxskU13CZNrZtNqKj2spn",
-            "5GLN3NpH3reQQg2oFEf7sLou9eSPxskU13CZNrZtNqKj2spn",
+            "5E4iukGvdiRgVeWrS9q47JgvFQ7KpuuAn1NHsptfQk9WC7Ub",
+            "5E4iukGvdiRgVeWrS9q47JgvFQ7KpuuAn1NHsptfQk9WC7Ub",
             {
-              "grandpa": "5CZJJgorN77mNwfuy7ipm9MuToUoqD1kdCnEJC5AZadQf3jD",
-              "babe": "5GLN3NpH3reQQg2oFEf7sLou9eSPxskU13CZNrZtNqKj2spn",
-              "im_online": "5GLN3NpH3reQQg2oFEf7sLou9eSPxskU13CZNrZtNqKj2spn",
-              "authority_discovery": "5GLN3NpH3reQQg2oFEf7sLou9eSPxskU13CZNrZtNqKj2spn"
+              "grandpa": "5EBua5Q6ASggDBUDaiv9DVLHR2cJFLN1bfYQFPHHY4jqKjQD",
+              "babe": "5E4iukGvdiRgVeWrS9q47JgvFQ7KpuuAn1NHsptfQk9WC7Ub",
+              "im_online": "5E4iukGvdiRgVeWrS9q47JgvFQ7KpuuAn1NHsptfQk9WC7Ub",
+              "authority_discovery": "5E4iukGvdiRgVeWrS9q47JgvFQ7KpuuAn1NHsptfQk9WC7Ub"
             }
           ]
         ]
@@ -104,13 +102,13 @@
       },
       "technicalCommittee": {
         "members": [
-          "5GP56sjh9pMe7WrmYzH2AHVEoiWmbwPREBeCJpYX1A8cc5y5"
+          "5FTqEQ6e2n3PEz8XPWGCsqUJzvvyZwzfzvFb7eWiDw1Wor6y"
         ]
       },
       "elections": {
         "members": [
           [
-            "5GP56sjh9pMe7WrmYzH2AHVEoiWmbwPREBeCJpYX1A8cc5y5",
+            "5FTqEQ6e2n3PEz8XPWGCsqUJzvvyZwzfzvFb7eWiDw1Wor6y",
             1000000000000000000
           ]
         ]
@@ -123,7 +121,7 @@
       },
       "treasury": {},
       "sudo": {
-        "key": "5GP56sjh9pMe7WrmYzH2AHVEoiWmbwPREBeCJpYX1A8cc5y5"
+        "key": "5FTqEQ6e2n3PEz8XPWGCsqUJzvvyZwzfzvFb7eWiDw1Wor6y"
       },
       "imOnline": {
         "keys": []
@@ -146,7 +144,7 @@
         "assets": [
           [
             9,
-            "5GP56sjh9pMe7WrmYzH2AHVEoiWmbwPREBeCJpYX1A8cc5y5",
+            "5FTqEQ6e2n3PEz8XPWGCsqUJzvvyZwzfzvFb7eWiDw1Wor6y",
             true,
             1
           ]

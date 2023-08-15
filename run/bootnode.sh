@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cargo run --release -- --base-path ~/blockchain --chain raw_spec.json --telemetry-url "wss://telemetry.polkadot.io/submit/ 0" --validator --name "`hostname`" $@
+cargo run --release -- --base-path ~/blockchain --chain raw_spec.json --telemetry-url "wss://telemetry.polkadot.io/submit/ 0" --validator --node-key-file ~/nodekey --name "`hostname`" $@
 

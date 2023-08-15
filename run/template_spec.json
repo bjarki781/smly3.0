@@ -2,9 +2,7 @@
   "name": "SMLY3.0",
   "id": "smly3",
   "chainType": "Development",
-  "bootNodes": [
-    "/ip4/127.0.0.1/tcp/30333/p2p/12D3KooWJh2oW5PAAaT7cGg2GFui94sz77jsqDhrf3vmh9e5s7q7"
-  ],
+  "bootNodes": [],
   "telemetryEndpoints": null,
   "protocolId": null,
   "properties": null,
@@ -33,11 +31,11 @@
       "balances": {
         "balances": [
           [
-            "$auratw",
+            "$babetw",
             1000000000000000000000
           ],
           [
-            "$aurasveit",
+            "$babesveit",
             1000000000000000000000
           ]
         ]
@@ -49,22 +47,22 @@
         "validatorCount": 2,
         "minimumValidatorCount": 1,
         "invulnerables": [
-          "$auratw",
-          "$aurasveit"
+          "$babetw",
+          "$babesveit"
         ],
         "forceEra": "NotForcing",
         "slashRewardFraction": 100000000,
         "canceledPayout": 0,
         "stakers": [
           [
-            "$auratw",
-            "$auratw",
+            "$babetw",
+            "$babetw",
             1000000000000000000,
             "Validator"
           ],
           [
-            "$aurasveit",
-            "$aurasveit",
+            "$babesveit",
+            "$babesveit",
             1000000000000000000,
             "Validator"
           ]
@@ -77,23 +75,23 @@
       "session": {
         "keys": [
           [
-            "$auratw",
-            "$auratw",
+            "$babetw",
+            "$babetw",
             {
               "grandpa": "$grantw",
-              "babe": "$auratw",
-              "im_online": "$auratw",
-              "authority_discovery": "$auratw"
+              "babe": "$babetw",
+              "im_online": "$babetw",
+              "authority_discovery": "$babetw"
             }
           ],
           [
-            "$aurasveit",
-            "$aurasveit",
+            "$babesveit",
+            "$babesveit",
             {
               "grandpa": "$gransveit",
-              "babe": "$aurasveit",
-              "im_online": "$aurasveit",
-              "authority_discovery": "$aurasveit"
+              "babe": "$babesveit",
+              "im_online": "$babesveit",
+              "authority_discovery": "$babesveit"
             }
           ]
         ]
@@ -104,13 +102,13 @@
       },
       "technicalCommittee": {
         "members": [
-          "$auratw"
+          "$babetw"
         ]
       },
       "elections": {
         "members": [
           [
-            "$auratw",
+            "$babetw",
             1000000000000000000
           ]
         ]
@@ -123,7 +121,7 @@
       },
       "treasury": {},
       "sudo": {
-        "key": "$auratw"
+        "key": "$babetw"
       },
       "imOnline": {
         "keys": []
@@ -146,7 +144,7 @@
         "assets": [
           [
             9,
-            "$auratw",
+            "$babetw",
             true,
             1
           ]
