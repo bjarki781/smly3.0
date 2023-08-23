@@ -2,10 +2,20 @@
   "name": "SMLY3.0",
   "id": "smly3",
   "chainType": "Live",
-  "bootNodes": [],
-  "telemetryEndpoints": null,
-  "protocolId": null,
-  "properties": null,
+  "bootNodes": [
+    "/ip4/127.0.0.1/tcp/30333/p2p/12D3KooWCgb4nw5yx9VEysNXd3XiELNrMVw32my2BkhAqRqiBxQL"
+  ],
+  "telemetryEndpoints": [
+    [
+      "/dns/telemetry.polkadot.io/tcp/443/x-parity-wss/%2Fsubmit%2F",
+      0
+    ]
+  ],
+  "protocolId": "smly3",
+  "properties": {
+    "tokenDecimals": 8,
+    "tokenSymbol": "SMLY3"
+  },
   "forkBlocks": null,
   "badBlocks": null,
   "lightSyncState": null,

@@ -3,9 +3,14 @@
   "id": "smly3",
   "chainType": "Live",
   "bootNodes": [],
-  "telemetryEndpoints": null,
-  "protocolId": null,
-  "properties": null,
+  "telemetryEndpoints": [
+      ["wss://telemetry.polkadot.io/submit/", 0] 
+  ],
+  "protocolId": "smly3",
+  "properties": {
+      "tokenDecimals": 8,
+      "tokenSymbol": "SMLY3"
+  },
   "forkBlocks": null,
   "badBlocks": null,
   "lightSyncState": null,
