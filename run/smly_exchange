@@ -10,8 +10,8 @@
 
 logfile=~/exchange.log
 txidfile=~/txids.log
-ws_dest="ws://127.0.0.1:9945"
-nuc_seed=`cat ~/nuc_seed`
+ws_dest="ws://127.0.0.1:9944"
+sudo_seed=`cat ~/.seed`
 
 log() {
     echo "$txid_first $1" >> $logfile
@@ -91,7 +91,7 @@ then
 fi
 
 # Step 2: read op_return data in tx
-log "trying to find magic number fa32 and SMLY2.0 address embedded in the transaction"
+log "trying to find magic number fa32 and SMLY3.0 address embedded in the transaction"
 hexaddress=`echo $decodedtx | perl -pe 's|.*fa32(35.*?)".*|\1|'`
 address=`echo "$hexaddress" | xxd -r -p`
 
@@ -109,14 +109,17 @@ old_balance=`polkadot-js-api --seed --ws "$ws_dest" query.system.account "$addre
 | sed -s 's|,||g' | perl -pe 's|.* "(\d+)"|\1|'`
 
 new_balance=`echo "$final_amount + $old_balance" | bc`
-send_result=`polkadot-js-api --seed "$nuc_seed" --sudo --ws "$ws_dest" tx.balances.forceSetBalance  "$address" "$new_balance"`
+send_result=`polkadot-js-api --seed "$sudo_seed" --sudo --ws "$ws_dest" tx.balances.forceSetBalance  "$address" "$new_balance"`
 failed=`echo "$send_result" | grep ExtrinsicFailed`
+ 
+echo polkadot-js-api --seed "$nuc_seed" --sudo --ws "$ws_dest" tx.balances.forceSetBalance  "$address" "$new_balance" > ~/result
+echo "$send_result" >> ~/result
 
 if [ "$failed" ]
 then
-    failure "something went wrong with transferring SMLY2.0, nothing transferred"
+    failure "something went wrong with transferring SMLY3.0, nothing transferred"
 fi
 
-log "successfully burned ${sent_amount}SMLY and set ${new_balance} to $address on the SMLY2.0 chain"
+log "successfully burned ${sent_amount}SMLY and set ${new_balance} to $address on the SMLY3.0 chain"
 exit 0
 
