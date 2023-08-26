@@ -51,5 +51,5 @@ echo $babetw
 envsubst < template_spec.json > spec.json
 
 # build the raw spec
-cargo run --release -- build-spec --chain spec.json --raw > raw_spec.json
+cargo run --release -- build-spec --chain spec.json --raw --disable-default-bootnode > raw_spec.json
 
