@@ -181,6 +181,12 @@
         "maxMembersPerPool": 32,
         "maxMembers": 512,
         "globalMaxCommission": null
+      },
+      "txPause": {
+        "paused": []
+      },
+      "safeMode": {
+        "enteredUntil": null
       }
     }
   }
