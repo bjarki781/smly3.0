@@ -97,7 +97,7 @@ address=`echo "$hexaddress" | xxd -r -p`
 
 amount_back=`echo "$sent_amount - 1" | bc`
 log "amount to send back in case of failure: $amount_back"
-scaled_amount=`echo "$sent_amount * 1000000000000" | bc`
+scaled_amount=`echo "$sent_amount * 10000000000" | bc`
 final_amount=`LC_NUMERIC="en_US.UTF-8" printf "%.0f" "$scaled_amount"`
 
 if [ -z "$address" ]
