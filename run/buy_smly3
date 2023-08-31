@@ -8,18 +8,16 @@ then
     exit 1
 fi
 
-echo "transaction fees of 2 SMLY will be charged" 
+echo "transaction fees of 1 SMLY will be charged" 
 
 smly2_address="$1"
 amount=`echo "$2" | bc`
-amountplusone=`echo "$2 + 1" | bc`
 
-my_address=`smileycoin-cli getnewaddress`
-exchange_address="BBURNWmHr57hJKk9cFfjCko7HJmmNaz6n3"
+exchange_address="B8inrbLQzgmzA7MScB1XKN2vtRY2DoSDpr"
 
 data="fa32`echo $smly2_address | xxd -p | tr -d '\n'`"
 
-unspent_txid=`smileycoin-cli sendtoaddress $my_address $amountplusone`
+unspent_txid=`smileycoin-cli sendtoaddress $my_address $amount`
 
 if [ -z $unspent_txid ]
 then 

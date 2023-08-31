@@ -24,10 +24,9 @@ failure() {
 
 if [ $# != 1 ]
 then
-    failure "we need txid as an argument"
+    failure "we need a txid as an argument"
 fi
 
-program_name="$0"
 txid="$1"
 
 if [ -z "$txid" ]
@@ -37,14 +36,12 @@ fi
 
 txid_first=`echo $txid | cut -b 1-6`
 
-our_address="BBURNWmHr57hJKk9cFfjCko7HJmmNaz6n3"
-
 log "`date`"
 
 repeat=`grep "$txid" "$txidfile"`
 if [ "$repeat" ]
 then
-    exit 1
+    exit 1 # silent exit since we don't want to spam the log file
 fi
 
 echo "$txid" >> $txidfile
@@ -56,53 +53,45 @@ then
 	failure "invalid transaction: $txid_first is a coinbase transaction"
 fi
 
-# Step 1: extract some basics for the incoming transaction (the amount and encrypted address)
+# Step 1: extract information for the incoming transaction (the amount and embedded address)
 tx=`smileycoin-cli getrawtransaction "$txid"`
 
+# not found, wait and try again
 if [ -z "$tx" ]
 then
 	log "could not look up txid $txid"
         log "sleeping for 120 seconds"
 	sleep 120
 	tx=`smileycoin-cli getrawtransaction "$txid"`
-
 	if [ -z "$tx" ]
 	then
-        failure "still could not look up txid $txid"
+		failure "could still not look txid $txid up"
 	fi
 fi
 
-log "checking whether this tx contains a some coins or not"
+log "checking whether this tx burned some SMLY or not"
 decodedtx=`smileycoin-cli decoderawtransaction "$tx"`
 
-sent_amount=`echo "$decodedtx" | grep -B 3 OP_RETURN | head -1 \
+burned_amount=`echo "$decodedtx" | grep -B 3 OP_RETURN | head -1 \
         | perl -pe 's|.*"value" : (\d+.\d+).*|\1|'`
-log "this is the amount sent: >$sent_amount<"
 
-if [ -z "$sent_amount" ]
+if [ -z "$burned_amount" ]
 then
-	failure "invalid transaction: ${txid_first}... does not include any SMLY to our address"
+	failure "invalid transaction, didn't burn any SMLY"
 fi
-
-
-if [ `echo "$sent_amount < 1" | bc -l` = 1 ]
-then
-	failure "invalid transaction: ${txid_first}... has to contain more than 1SMLY for tx fees"
-fi
+log "amount burned: >$burned_amount<"
 
 # Step 2: read op_return data in tx
 log "trying to find magic number fa32 and SMLY3.0 address embedded in the transaction"
 hexaddress=`echo $decodedtx | perl -pe 's|.*fa32(35.*?)".*|\1|'`
 address=`echo "$hexaddress" | xxd -r -p`
 
-amount_back=`echo "$sent_amount - 1" | bc`
-log "amount to send back in case of failure: $amount_back"
-scaled_amount=`echo "$sent_amount * 100000000" | bc`
+scaled_amount=`echo "$burned_amount * 100000000" | bc`
 final_amount=`LC_NUMERIC="en_US.UTF-8" printf "%.0f" "$scaled_amount"`
 
 if [ -z "$address" ]
 then
-	failure "invalid transaction: was not able to find SMLY3.0 address to send to"
+	failure "invalid transaction: wasn't able to find SMLY3.0 address to send to"
 fi
 
 old_balance=`polkadot-js-api --seed --ws "$ws_dest" query.system.account "$address" | grep free  \
@@ -112,14 +101,11 @@ new_balance=`echo "$final_amount + $old_balance" | bc`
 send_result=`polkadot-js-api --seed "$sudo_seed" --sudo --ws "$ws_dest" tx.balances.forceSetBalance  "$address" "$new_balance"`
 failed=`echo "$send_result" | grep ExtrinsicFailed`
  
-echo polkadot-js-api --seed "$nuc_seed" --sudo --ws "$ws_dest" tx.balances.forceSetBalance  "$address" "$new_balance" > ~/result
-echo "$send_result" >> ~/result
-
 if [ "$failed" ]
 then
     failure "something went wrong with transferring SMLY3.0, nothing transferred"
 fi
 
-log "successfully burned ${sent_amount}SMLY and set ${new_balance} to $address on the SMLY3.0 chain"
+log "${burned_amount}SMLY successfully burned and the balance of $address on the SMLY3.0 chain is ${new_balance}"
 exit 0
 
