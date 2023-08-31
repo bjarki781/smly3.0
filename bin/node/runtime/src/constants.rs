@@ -21,7 +21,7 @@
 pub mod currency {
 	use node_primitives::Balance;
 
-	pub const MILLICENTS: Balance =  100 000;
+	pub const MILLICENTS: Balance =  100_000;
 	pub const CENTS: Balance = 1_000 * MILLICENTS; // assume that 1 SMLY = 1 cent = 1kr
 	pub const DOLLARS: Balance = 100 * CENTS;
 
