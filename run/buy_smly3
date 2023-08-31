@@ -8,16 +8,23 @@ then
     exit 1
 fi
 
-echo "transaction fees of 1 SMLY will be charged" 
+echo "transaction fees of 1.1 SMLY will be charged" 
 
 smly2_address="$1"
+my_address=`smileycoin-cli getnewaddress`
 amount=`echo "$2" | bc`
+amountplusone=`echo "$2+1" | bc`
+
+case $amount in
+    ''|*[!0-9]*) echo "amount must be an integer"; exit 1 ;;
+    *) echo amount is integer ;;
+esac
 
 exchange_address="B8inrbLQzgmzA7MScB1XKN2vtRY2DoSDpr"
 
 data="fa32`echo $smly2_address | xxd -p | tr -d '\n'`"
 
-unspent_txid=`smileycoin-cli sendtoaddress $my_address $amount`
+unspent_txid=`smileycoin-cli sendtoaddress $my_address $amountplusone`
 
 if [ -z $unspent_txid ]
 then 
@@ -36,7 +43,7 @@ then
 fi
 
 raw=`smileycoin-cli createrawtransaction "[{\"txid\":\"$unspent_txid\",\"vout\":$unspent_vout}]"\
-                                         "{\"$exchange_address\":1,\"data\":\"$data:$amount\"}"`
+                                         "{\"$exchange_address\":0.1,\"data\":\"$data:$amount\"}"`
 smileycoin-cli decoderawtransaction $raw
 signed=`smileycoin-cli signrawtransaction "$raw" | head -2 | tail -1 | sed -e 's/    "hex" : //' -e 's/"//g' -e 's/,//'`
 
