@@ -37,16 +37,16 @@
         "balances": [
           [
             "5FTqEQ6e2n3PEz8XPWGCsqUJzvvyZwzfzvFb7eWiDw1Wor6y",
-            1000000000000000000000
+            2500000000000000
           ],
           [
             "5E4iukGvdiRgVeWrS9q47JgvFQ7KpuuAn1NHsptfQk9WC7Ub",
-            1000000000000000000000
+            2500000000000000
           ]
         ]
       },
       "transactionPayment": {
-        "multiplier": "1000000000000000000"
+        "multiplier": "1000000000"
       },
       "staking": {
         "validatorCount": 2,
@@ -62,13 +62,13 @@
           [
             "5FTqEQ6e2n3PEz8XPWGCsqUJzvvyZwzfzvFb7eWiDw1Wor6y",
             "5FTqEQ6e2n3PEz8XPWGCsqUJzvvyZwzfzvFb7eWiDw1Wor6y",
-            1000000000000000000,
+            1000000000000000,
             "Validator"
           ],
           [
             "5E4iukGvdiRgVeWrS9q47JgvFQ7KpuuAn1NHsptfQk9WC7Ub",
             "5E4iukGvdiRgVeWrS9q47JgvFQ7KpuuAn1NHsptfQk9WC7Ub",
-            1000000000000000000,
+            1000000000000000,
             "Validator"
           ]
         ],
@@ -113,8 +113,7 @@
       "elections": {
         "members": [
           [
-            "5FTqEQ6e2n3PEz8XPWGCsqUJzvvyZwzfzvFb7eWiDw1Wor6y",
-            1000000000000000000
+            "5FTqEQ6e2n3PEz8XPWGCsqUJzvvyZwzfzvFb7eWiDw1Wor6y", 1000000000000
           ]
         ]
       },
@@ -175,8 +174,8 @@
         "allies": []
       },
       "nominationPools": {
-        "minJoinBond": 100000000000000,
-        "minCreateBond": 1000000000000000,
+        "minJoinBond": 100000000000,
+        "minCreateBond": 1000000000000,
         "maxPools": 16,
         "maxMembersPerPool": 32,
         "maxMembers": 512,

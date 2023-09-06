@@ -4,6 +4,8 @@ function subkey() {
     cargo run --release --package subkey -- "$@"
 }
 
+mv raw_spec.json raw_spec.json.backup
+
 if [ "$1" = newkeys ]; then
 	# generate keys
 	rawbabe_nuc=`subkey generate`

@@ -37,16 +37,16 @@
         "balances": [
           [
             "$babetw",
-            1000000000000000000000
+            2500000000000000
           ],
           [
             "$babesveit",
-            1000000000000000000000
+            2500000000000000
           ]
         ]
       },
       "transactionPayment": {
-        "multiplier": "1000000000000000000"
+        "multiplier": "1000000000"
       },
       "staking": {
         "validatorCount": 2,
@@ -62,13 +62,13 @@
           [
             "$babetw",
             "$babetw",
-            1000000000000000000,
+            1000000000000000,
             "Validator"
           ],
           [
             "$babesveit",
             "$babesveit",
-            1000000000000000000,
+            1000000000000000,
             "Validator"
           ]
         ],
@@ -113,8 +113,7 @@
       "elections": {
         "members": [
           [
-            "$babetw",
-            1000000000000000000
+            "$babetw", 1000000000000
           ]
         ]
       },
@@ -175,8 +174,8 @@
         "allies": []
       },
       "nominationPools": {
-        "minJoinBond": 100000000000000,
-        "minCreateBond": 1000000000000000,
+        "minJoinBond": 100000000000,
+        "minCreateBond": 1000000000000,
         "maxPools": 16,
         "maxMembersPerPool": 32,
         "maxMembers": 512,
