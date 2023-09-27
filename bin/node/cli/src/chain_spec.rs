@@ -67,6 +67,11 @@ pub fn flaming_fir_config() -> Result<ChainSpec, String> {
 	ChainSpec::from_json_bytes(&include_bytes!("../res/flaming-fir.json")[..])
 }
 
+/// smly3 generator
+pub fn smly3_config() -> Result<ChainSpec, String> {
+	ChainSpec::from_json_bytes(&include_bytes!("../res/smly3.json")[..])
+}
+
 fn session_keys(
 	grandpa: GrandpaId,
 	babe: BabeId,

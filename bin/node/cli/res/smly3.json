@@ -1,13 +1,10 @@
 {
-  "name": "SMLY3.0",
-  "id": "smly3",
+  "name": "Smileycoin 3.0",
+  "id": "smileycoin3",
   "chainType": "Live",
   "bootNodes": [],
   "telemetryEndpoints": [
-    [
-      "/dns/telemetry.polkadot.io/tcp/443/x-parity-wss/%2Fsubmit%2F",
-      0
-    ]
+    [ "wss://telemetry.polkadot.io/submit/", 0 ]
   ],
   "protocolId": "smly3",
   "properties": {
